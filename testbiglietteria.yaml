@@ -1,0 +1,13 @@
+stages:
+  - automated-api-tests
+
+automated-api-tests:
+  stage: automated-api-tests
+  image: cimg/base:2021.04
+  before_script:
+    # Installing Postman CLI
+    - curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+  script:
+    # Login using your Postman API keys
+    - postman login --with-api-key PMAK-664376cbfae37500014d2d06-cc0506a864b38c6245d03c5035c8c6ee2b
+    - postman collection run "${CI_PROJECT_DIR}/.github/Biglietteria.json" -e "32034997-e028235f-a77b-440f-b519-926408a7d4b9"
